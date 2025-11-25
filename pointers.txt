@@ -1,0 +1,5 @@
+Main points:
+ insert -> serializable
+ update -> repeatable read
+
+		
