@@ -5,16 +5,20 @@ This repository contains practical examples demonstrating various database concu
 ## Projects Overview
 
 ### 1. [Concurrency.AvoidLostUpdate](Concurrency.AvoidLostUpdate)
+
 **Problem**: Lost Update Problem
 - **Scenario**: Multiple users editing the same record simultaneously, where one user's changes overwrite another's changes without warning.
 - **Solutions Demonstrated**:
   - **Optimistic Concurrency with Row Versioning**: Uses SQL Server's `ROWVERSION`/`TIMESTAMP` column to detect concurrent modifications.
-  - **Optimistic Concurrency with Original Values**: Stores original field values and compares them during updates.
+  - **Optimistic Concurrency with Original Values**: Stores original field values and compares them during updates. This solution is useful for situations where you can't change the database tables to include a timestamp column.
 
 **Key Files**:
 - [`SchoolClassDataAccess.cs`](Concurrency.AvoidLostUpdate/SchoolClassDataAccess.cs): Demonstrates ROWVERSION-based optimistic concurrency.
 - [`StudentDataAccess.cs`](Concurrency.AvoidLostUpdate/StudentDataAccess.cs): Shows original value comparison approach.
 - [`Model/Student.cs`](Concurrency.AvoidLostUpdate/Model/Student.cs): Entity with original value tracking.
+
+<img width="480" alt="SchoolClass-Student db diagram" src="https://github.com/user-attachments/assets/c00bbee5-f840-44b8-ab3b-4f8621fd90b1" />
+
 
 ### 2. [Concurrency.CheckAndReduceStock](Concurrency.CheckAndReduceStock)
 **Problem**: Race Conditions in Stock Management
@@ -27,6 +31,9 @@ This repository contains practical examples demonstrating various database concu
 - [`Optimistic/InventoryDataAccess.cs`](Concurrency.CheckAndReduceStock/Optimistic/InventoryDataAccess.cs): Atomic stock reduction using conditional UPDATE.
 - [`Pessimistic/InventoryDataAccess.cs`](Concurrency.CheckAndReduceStock/Pessimistic/InventoryDataAccess.cs): Lock-based approach with explicit transaction control.
 
+<img width="320" alt="Product db diagram" src="https://github.com/user-attachments/assets/5168edc8-215a-4728-855f-30a41facbefe" />
+
+
 ### 3. [Concurrency.AvoidDuplicateBookings](Concurrency.AvoidDuplicateBookings)
 **Problem**: Phantom Reads and Duplicate Reservations
 - **Scenario**: Multiple users trying to book the same resource (trailer rental) for overlapping time periods.
@@ -35,6 +42,9 @@ This repository contains practical examples demonstrating various database concu
 
 **Key Files**:
 - [`Pessimistic/TrailerRentalDataAccess.cs`](Concurrency.AvoidDuplicateBookings/Pessimistic/TrailerRentalDataAccess.cs): Implements SERIALIZABLE transaction to prevent booking conflicts.
+
+<img width="640" alt="Rental db diagram" src="https://github.com/user-attachments/assets/7434a02b-0840-40b0-9569-0631c4f09bcf" />
+
 
 ## Concurrency Control Techniques Explained
 
@@ -84,3 +94,4 @@ By studying these examples, you'll understand:
 ## Contributing
 These examples are designed for educational purposes to demonstrate concurrency control concepts in database programming.  
 Contributions are welcome to enhance the examples or add new scenarios.
+
