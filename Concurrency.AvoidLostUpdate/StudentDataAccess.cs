@@ -16,7 +16,7 @@ public class StudentDataAccess
     /// <summary>
     /// Updates a student row using optimistic concurrency.
     /// Update only succeeds if Id, FirstName, LastName, Email, and ClassId
-    /// in the DB still match the values supplied in the Student object.
+    /// in the DB still match the original values from when the Student object was first created.
     /// </summary>
     public void UpdateStudent(Student student)
     {
@@ -24,28 +24,36 @@ public class StudentDataAccess
 
         const string sql = @"
                 UPDATE Student
+
                 SET FirstName = @FirstName,
                     LastName  = @LastName,
                     Email     = @Email,
                     Class_Id  = @ClassId
-                WHERE Id = @Id
-                  AND FirstName = @FirstName
-                  AND LastName  = @LastName
-                  AND Email     = @Email
+
+                WHERE Id = @OriginalId
+                  AND FirstName = @OriginalFirstName
+                  AND LastName  = @OriginalLastName
+                  AND Email     = @OriginalEmail
                   AND (
-                        (Class_Id = @ClassId) 
-                        OR (Class_Id IS NULL AND @ClassId IS NULL)
+                        (Class_Id = @OriginalClassId) 
+                        OR (Class_Id IS NULL AND @OriginalClassId IS NULL)
                       );";
 
         using (var connection = new SqlConnection(_connectionString))
         using (var command = new SqlCommand(sql, connection))
         {
-            command.Parameters.Add("@Id", SqlDbType.Int).Value = student.Id;
+            // Use original values for WHERE clause conditions
+            command.Parameters.Add("@OriginalId", SqlDbType.Int).Value = student.OriginalId;
+            command.Parameters.Add("@OriginalFirstName", SqlDbType.NVarChar, 150).Value = student.OriginalFirstName;
+            command.Parameters.Add("@OriginalLastName", SqlDbType.NVarChar, 150).Value = student.OriginalLastName;
+            command.Parameters.Add("@OriginalEmail", SqlDbType.NVarChar, 255).Value = student.OriginalEmail;
+            command.Parameters.Add("@OriginalClassId", SqlDbType.Int)
+                .Value = (object?)student.OriginalClassId ?? DBNull.Value;
+
+            // Use current values for SET clause (the new values to update to)
             command.Parameters.Add("@FirstName", SqlDbType.NVarChar, 150).Value = student.FirstName;
             command.Parameters.Add("@LastName", SqlDbType.NVarChar, 150).Value = student.LastName;
             command.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = student.Email;
-
-            // Nullable parameter handling
             command.Parameters.Add("@ClassId", SqlDbType.Int)
                 .Value = (object?)student.ClassId ?? DBNull.Value;
 
