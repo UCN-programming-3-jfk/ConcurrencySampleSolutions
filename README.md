@@ -50,13 +50,13 @@ This repository contains practical examples demonstrating various database concu
 
 ### Optimistic Concurrency Control
 - **When to Use**: Low contention scenarios, read-heavy workloads.
-- **How it Works**: Assumes conflicts are rare; detects conflicts at commit time.
+- **How it Works**: Assumes conflicts are rare; detects conflicts at commit time. Check is often implemented in creation SQL.
 - **Advantages**: Better performance, no locking overhead.
 - **Disadvantages**: Requires conflict resolution logic.
 
 ### Pessimistic Concurrency Control
 - **When to Use**: High contention scenarios, critical data consistency requirements.
-- **How it Works**: Prevents conflicts by locking resources upfront.
+- **How it Works**: Prevents conflicts by locking resources upfront. Often implemented in code: first check for problems, then creation.
 - **Advantages**: Guarantees consistency, simpler conflict handling.
 - **Disadvantages**: Potential for deadlocks, reduced concurrency.
 
@@ -94,5 +94,6 @@ By studying these examples, you'll understand:
 ## Contributing
 These examples are designed for educational purposes to demonstrate concurrency control concepts in database programming.  
 Contributions are welcome to enhance the examples or add new scenarios.
+
 
 
