@@ -40,7 +40,7 @@ public class InventoryDataAccess
                     // 1. Read the current stock with an update lock to prevent other writers
                     const string selectSql = @"
                             SELECT Stock
-                            FROM Product WITH (UPDLOCK, ROWLOCK)
+                            FROM Product
                             WHERE Id = @ProductId;";
 
                     using (var selectCommand = new SqlCommand(selectSql, connection, transaction))
