@@ -41,8 +41,8 @@ This repository contains practical examples demonstrating various database concu
   - **Pessimistic Concurrency with SERIALIZABLE Isolation**: Uses the highest isolation level to prevent phantom reads and ensure no overlapping bookings.
 
 **Key Files**:
-- [`Pessimistic/TrailerRentalDataAccess.cs`](Concurrency.AvoidDuplicateBookings/Pessimistic/TrailerRentalDataAccess.cs): Implements SERIALIZABLE transaction to prevent booking conflicts.
 - [`Optimistic/TrailerRentalDataAccess.cs`](https://github.com/UCN-programming-3-jfk/ConcurrencySampleSolutions/blob/master/Concurrency.AvoidDuplicateBookings/Optimistic/TrailerRentalDataAccess.cs): Implements an `INSERT INTO ... WHERE NOT EXISTS ...` SQL solution, to prevent booking conflicts.
+- [`Pessimistic/TrailerRentalDataAccess.cs`](Concurrency.AvoidDuplicateBookings/Pessimistic/TrailerRentalDataAccess.cs): Implements SERIALIZABLE transaction to prevent booking conflicts.
 
 <img width="640" alt="Rental db diagram" src="https://github.com/user-attachments/assets/7434a02b-0840-40b0-9569-0631c4f09bcf" />
 
@@ -95,6 +95,7 @@ By studying these examples, you'll understand:
 ## Contributing
 These examples are designed for educational purposes to demonstrate concurrency control concepts in database programming.  
 Contributions are welcome to enhance the examples or add new scenarios.
+
 
 
 
