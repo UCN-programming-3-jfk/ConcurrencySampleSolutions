@@ -25,7 +25,7 @@ This repository contains practical examples demonstrating various database concu
 - **Scenario**: Multiple concurrent requests trying to reduce inventory stock, potentially leading to negative stock levels.
 - **Solutions Demonstrated**:
   - **Optimistic Approach**: Single atomic UPDATE statement with stock validation.
-  - **Pessimistic Approach**: Explicit locking with `UPDLOCK` and `REPEATABLE READ` isolation level.
+  - **Pessimistic Approach**: Explicit locking with `REPEATABLE READ` isolation level.
 
 **Key Files**:
 - [`Optimistic/InventoryDataAccess.cs`](Concurrency.CheckAndReduceStock/Optimistic/InventoryDataAccess.cs): Atomic stock reduction using conditional UPDATE.
@@ -95,6 +95,7 @@ By studying these examples, you'll understand:
 ## Contributing
 These examples are designed for educational purposes to demonstrate concurrency control concepts in database programming.  
 Contributions are welcome to enhance the examples or add new scenarios.
+
 
 
 
